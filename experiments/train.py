@@ -16,6 +16,7 @@ from training import losses, callbacks
 from training import ForwardTrainer, ConditionalForwardTrainer, SCANDALForwardTrainer, AdversarialTrainer, ConditionalAdversarialTrainer, AlternatingTrainer, SamplingForwardTrainer
 
 from datasets import load_simulator, SIMULATORS
+from datasets import celeba
 from utils import create_filename, create_modelname, nat_to_bit_per_dim
 from architectures import create_model
 from architectures.create_model import ALGORITHMS
@@ -679,7 +680,9 @@ if __name__ == "__main__":
 
     # Data
     simulator = load_simulator(args)
-    dataset = simulator.load_dataset(train=True, dataset_dir=create_filename("dataset", None, args), limit_samplesize=args.samplesize, joint_score=args.scandal is not None)
+    # dataset = simulator.load_dataset(train=True, dataset_dir=create_filename("dataset", None, args), limit_samplesize=args.samplesize, joint_score=args.scandal is not None)
+
+    dataset = celeba.CelebADataset()
 
     # Model
     model = create_model(args, simulator)
