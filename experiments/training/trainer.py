@@ -124,7 +124,7 @@ class BaseTrainer(object):
                 raise NanException
 
     @staticmethod
-    def make_dataloader(dataset, validation_split, batch_size, n_workers=4):
+    def make_dataloader(dataset, validation_split, batch_size, n_workers=0):
         logger.debug("Setting up dataloaders with %s workers", n_workers)
 
         if validation_split is None or validation_split <= 0.0:

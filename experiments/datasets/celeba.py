@@ -8,6 +8,7 @@ import zipfile
 import io
 from PIL import Image
 from torchvision.transforms.functional import crop, resize
+from torchvision import transforms
 
 
 class CelebADataset(data.Dataset):
@@ -36,7 +37,7 @@ class CelebADataset(data.Dataset):
         assert split in {'train','valid','test'}
         self.root = os.path.expanduser(root)
         self.split = split
-        self.transform = transform
+        self.transform = transforms.Compose([transforms.ToTensor()])
 
         if not self._check_raw():
             raise RuntimeError('Dataset not found.\n\nFrom docstring:\n\n' + self.__doc__)
@@ -61,8 +62,8 @@ class CelebADataset(data.Dataset):
 
         img = self.data[index]
 
-        if self.transform is not None:
-            img = self.transform(img)
+        # if self.transform is not None:
+        img = self.transform(img)
 
         return img
 
