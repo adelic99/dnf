@@ -532,7 +532,7 @@ class Trainer(BaseTrainer):
         pass
 
     def batch_train(self, batch_data, loss_functions, loss_weights, optimizer, clip_gradient, parameters, sig2, noise_type, i_epoch , forward_kwargs=None, custom_kwargs=None):
-        batch_data[0] = batch_data[0].permute(0, 3, 1, 2)
+        # batch_data[0] = batch_data[0].permute(0, 3, 1, 2)
         loss_contributions = self.forward_pass(batch_data, loss_functions, sig2, noise_type, i_epoch, forward_kwargs=forward_kwargs, custom_kwargs=custom_kwargs)
         loss = self.sum_losses(loss_contributions, loss_weights)
         self.optimizer_step(optimizer, loss, clip_gradient, parameters)
@@ -618,7 +618,7 @@ class ForwardTrainer(Trainer):
         if forward_kwargs is None:
             forward_kwargs = {}
 
-        x = batch_data[0]
+        x = batch_data
         self._check_for_nans("Training data", x)
         
         if len(x.size()) < 2:
